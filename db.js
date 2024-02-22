@@ -3,9 +3,14 @@
 const { Client } = require("pg");
 const { getDatabaseUri } = require("./config");
 
-let db;
+let DB_URI = getDatabaseUri();
 
-if (process.env.NODE_ENV === "production") {
+let db = new Client({
+  host: "/var/run/postgresql/",
+  database: DB_URI
+});
+
+/*if (process.env.NODE_ENV === "production") {
   db = new Client({
     host: "/var/run/postgresql",
     database: getDatabaseUri(),
@@ -18,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
     host: "/var/run/postgresql",
     database: getDatabaseUri()
   });
-}
+}*/
 
 db.connect();
 
